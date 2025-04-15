@@ -9,19 +9,37 @@ import os
 caminho_arquivos = Path(__file__).parent.parent / 'datasets'
 
 df_cadastro = pd.read_excel(caminho_arquivos / 'cadastros.xlsx')
+<<<<<<< HEAD
+=======
+df_modelo = pd.read_excel(caminho_arquivos / 'modelo_dados_individuais.xlsx')
+>>>>>>> 9d96086 (App para Controle da saúde)
 lista_nomes = list(df_cadastro['NOME'])
 lista_opcoes = []
 
 st.set_page_config(page_title='Apresentação de Dados', layout='wide')
 
+<<<<<<< HEAD
+=======
+st.title('Apresentação de Dados')
+st.write('Esta aplicação tem como objetivo apresentar os dados de forma visual e interativa.')
+>>>>>>> 9d96086 (App para Controle da saúde)
 st.sidebar.title('Menu de Navegação')
 nome = st.sidebar.selectbox('Selecione o usuário', options=lista_nomes)
 cpf = df_cadastro.loc[df_cadastro['NOME'] == nome, 'CPF'].values[0]
 nr_cpf = str(cpf.replace('.', '').replace('-', ''))
+<<<<<<< HEAD
+=======
+            
+#cria relação de opções de dados a serem exibidos
+for item in df_modelo.columns:
+    if item not in ['Data e Hora do Lançamento', 'Data do Registro']:
+        lista_opcoes.append(item)
+>>>>>>> 9d96086 (App para Controle da saúde)
 
 #cria o Dataframe do usuario selecionado
 df_usuario = pd.read_excel(caminho_arquivos / 'usuarios' / nr_cpf / f'{nr_cpf}_dados_individuais.xlsx')
 
+<<<<<<< HEAD
 #cria relação de opções de dados a serem exibidos
 for item in df_usuario.columns:
     if item not in ['Data e Hora do Lançamento', 'Data do Registro']:
@@ -152,5 +170,16 @@ if len(lista_selecionada)%3 == 2:
         col3.plotly_chart(dic_charts[lista_selecionada[-1]], use_container_width=True)
     except:
         col3.container(height=300, border=False)
+=======
+lista_selecionada = st.sidebar.pills('Selecione os dados que deseja visualizar:', options=lista_opcoes, selection_mode='multi')
+try: 
+    #cria imagem plotly com gráficos de linha desejado
+    chart = px.line(df_usuario, x='Data do Registro', y=lista_selecionada)
+    st.plotly_chart(chart, use_container_width=True)
+except:
+    st.stop()
+
+
+>>>>>>> 9d96086 (App para Controle da saúde)
 
 

@@ -2,7 +2,6 @@ streamlit
 pandas
 Path
 datetime
-pathlib
 os
-plotly.express
-plotly.graph_objects
+plotly
+

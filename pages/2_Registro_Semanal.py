@@ -8,34 +8,20 @@ caminho_arquivos = Path(__file__).parent.parent / 'datasets'
 
 df_modelo = pd.read_excel(caminho_arquivos / 'modelo_dados_individuais.xlsx')
 df_cadastro = pd.read_excel(caminho_arquivos / 'cadastros.xlsx')
-lista_cpfs = list(df_cadastro['CPF'])
+lista_nomes = list(df_cadastro['NOME'])
 
 st.set_page_config(page_title='Criar Registro Semanal', layout='wide')
 
 st.sidebar.title('Cadastro Semanal')
-nr_cpf = st.sidebar.text_input('Digite o CPF do usuário (somente números)', max_chars=11)
+nome = st.sidebar.selectbox('Selecione o usuário', options=lista_nomes)
+cpf = df_cadastro.loc[df_cadastro['NOME'] == nome, 'CPF'].values[0]
+nr_cpf = str(cpf.replace('.', '').replace('-', ''))
+selec_nome = st.sidebar.button('Selecionar Usuário')
+if selec_nome and not Path(caminho_arquivos / 'usuarios' / nr_cpf).exists():
+    os.mkdir(caminho_arquivos / 'usuarios'/ nr_cpf)
+    df_usuario = df_modelo.copy()
+    df_usuario.to_excel(caminho_arquivos / 'usuarios' / nr_cpf / f'{nr_cpf}_dados_individuais.xlsx', index=False)
 
-if nr_cpf and not nr_cpf.isdigit():
-    st.sidebar.error('O CPF deve conter apenas números. Confira o CPF digitado.')
-    st.stop()
-
-cpf = nr_cpf[:3] + '.' + nr_cpf[3:6] + '.' + nr_cpf[6:9] + '-' + nr_cpf[9:]
-selec_cpf = st.sidebar.button('Selecionar CPF')
-if selec_cpf:           
-    if cpf not in lista_cpfs:
-        st.sidebar.error('CPF não encontrado. Confirme o número do CPF')
-        st.sidebar.write('Caso o Cadastro dessa pessoa não tenha sido realizado selecione a página de Novo cadastro')
-        st.stop()
-
-    if not Path(caminho_arquivos / 'usuarios' / nr_cpf).exists():
-        st.sidebar.error('CPF não encontrado. Confirme o número do CPF')
-        st.sidebar.write('Caso este seja o 1º registro do usuário, clique no botão abaixo')
-        novo_usuario = st.sidebar.button('1º REGISTRO DO USUÁRIO')
-        if novo_usuario:
-            df_usuario = df_modelo
-            os.mkdir(caminho_arquivos / 'usuarios'/ nr_cpf)
-            df_usuario.to_excel(caminho_arquivos / 'usuarios' / nr_cpf / f'{nr_cpf}_dados_individuais.xlsx', index=False)
-            st.write('Sucesso!')
 try:
     df_dados = pd.read_excel(caminho_arquivos / 'usuarios' / nr_cpf / f'{nr_cpf}_dados_individuais.xlsx')
 except:

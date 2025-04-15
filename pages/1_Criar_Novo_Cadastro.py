@@ -7,7 +7,7 @@ caminho_arquivos = Path(__file__).parent.parent / 'datasets'
 SEXO = ['Masculino', 'Feminino']
 
 df_reg = pd.read_excel(caminho_arquivos / 'cadastros.xlsx')
-
+nomes = list(df_reg['NOME'])
 st.set_page_config(page_title='Criar Novo Cadastro', layout='wide')
 
 st.title('Cadastro de Novo Usuário')

@@ -18,12 +18,15 @@ cpf = df_cadastro.loc[df_cadastro['NOME'] == nome, 'CPF'].values[0]
 nr_cpf = str(cpf.replace('.', '').replace('-', ''))
 selec_nome = st.sidebar.button('Selecionar Usuário')
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 if selec_nome and not Path(caminho_arquivos / 'usuarios' / nr_cpf).exists():
     os.mkdir(caminho_arquivos / 'usuarios'/ nr_cpf)
     df_usuario = df_modelo.copy()
     df_usuario.to_excel(caminho_arquivos / 'usuarios' / nr_cpf / f'{nr_cpf}_dados_individuais.xlsx', index=False)
 >>>>>>> 9d96086 (App para Controle da saúde)
+=======
+>>>>>>> f0866d3 (Add user registration and weekly record functionality with data visualization)
 
 try:
     df_dados = pd.read_excel(caminho_arquivos / 'usuarios' / nr_cpf / f'{nr_cpf}_dados_individuais.xlsx')

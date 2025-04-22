@@ -50,12 +50,17 @@ if salva:
         'Peso': peso,
         'IMC': imc,
 <<<<<<< HEAD
+<<<<<<< HEAD
         'Gordura Corporal': p_gordura,
         'Musculatura Corporal': p_musculo,
 =======
         'Percentual de Gordura Corporal': p_gordura,
         'Percentual de Musculatura Corporal': p_musculo,
 >>>>>>> 9d96086 (App para Controle da saúde)
+=======
+        'Gordura Corporal': p_gordura,
+        'Musculatura Corporal': p_musculo,
+>>>>>>> 42aa316 (Atz 22ABR)
         'Metabolismo Basal': metabolismo,
         'Idade Corporal': idade_corporal,
         'Gordura Visceral': gordura_visceral

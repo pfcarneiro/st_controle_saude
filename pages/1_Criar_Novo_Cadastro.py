@@ -110,6 +110,9 @@ dic_novo_reg = {
     'META_GORDURA' : meta_gordura,
     'META_MUSCULO' : meta_musculo,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 42aa316 (Atz 22ABR)
     'META_VISCERAL' : meta_visceral,
 }
 

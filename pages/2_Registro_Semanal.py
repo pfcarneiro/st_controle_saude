@@ -17,10 +17,6 @@ nome = st.sidebar.selectbox('Selecione o usuário', options=lista_nomes)
 cpf = df_cadastro.loc[df_cadastro['NOME'] == nome, 'CPF'].values[0]
 nr_cpf = str(cpf.replace('.', '').replace('-', ''))
 selec_nome = st.sidebar.button('Selecionar Usuário')
-if selec_nome and not Path(caminho_arquivos / 'usuarios' / nr_cpf).exists():
-    os.mkdir(caminho_arquivos / 'usuarios'/ nr_cpf)
-    df_usuario = df_modelo.copy()
-    df_usuario.to_excel(caminho_arquivos / 'usuarios' / nr_cpf / f'{nr_cpf}_dados_individuais.xlsx', index=False)
 
 try:
     df_dados = pd.read_excel(caminho_arquivos / 'usuarios' / nr_cpf / f'{nr_cpf}_dados_individuais.xlsx')
@@ -43,8 +39,8 @@ if salva:
         'Data do Registro': data,
         'Peso': peso,
         'IMC': imc,
-        'Percentual de Gordura Corporal': p_gordura,
-        'Percentual de Musculatura Corporal': p_musculo,
+        'Gordura Corporal': p_gordura,
+        'Musculatura Corporal': p_musculo,
         'Metabolismo Basal': metabolismo,
         'Idade Corporal': idade_corporal,
         'Gordura Visceral': gordura_visceral

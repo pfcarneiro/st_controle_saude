@@ -165,6 +165,7 @@ if len(lista_selecionada)%3 == 1:
         col2.container(height=300, border=False)    
         
 if len(lista_selecionada)%3 == 2:
+    
     col1.metric(label=lista_selecionada[-2],
                 border=True,
                 value=df_usuario[lista_selecionada[-2]].iloc[-1],

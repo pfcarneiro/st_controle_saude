@@ -126,8 +126,7 @@ st.plotly_chart(chart_lines, use_container_width=True, height=300, width=1000, b
 # dispoe as informações numéricas em 3 colunas 
 col1, col2, col3 = st.columns(3)
 div_int = len(lista_selecionada) // 3
-for n in range(div_int):
-    n    
+for n in range(div_int):  
     col1.metric(label=lista_selecionada[(3*(n))],
                 border=True,
                 value=df_usuario[lista_selecionada[(3*(n))]].iloc[-1], 

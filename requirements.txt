@@ -1,8 +1,7 @@
 streamlit
 pandas
 datetime
-plotly.express
-plotly.graph_objects
+plotly
 openpyxl
 numpy
 pathlib

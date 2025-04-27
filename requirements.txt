@@ -2,10 +2,9 @@ streamlit
 pandas
 Path
 datetime
-<<<<<<< HEAD
 plotly
 openpyxl
-=======
-openpyxl
 plotly
->>>>>>> 9d96086 (App para Controle da saúde)
+numpy
+pathlib
+os

@@ -19,14 +19,11 @@ st.set_page_config(page_title='Apresentação de Dados', layout='wide')
 st.title('Apresentação de Dados')
 st.write('Esta aplicação tem como objetivo apresentar os dados de forma visual e interativa.')
 st.sidebar.title('Menu de Navegação')
+
+# Permite ao operador selecionar um usuário
 nome = st.sidebar.selectbox('Selecione o usuário', options=lista_nomes)
 cpf = df_cadastro.loc[df_cadastro['NOME'] == nome, 'CPF'].values[0]
 nr_cpf = str(cpf.replace('.', '').replace('-', ''))
-            
-#cria relação de opções de dados a serem exibidos
-for item in df_modelo.columns:
-    if item not in ['Data e Hora do Lançamento', 'Data do Registro']:
-        lista_opcoes.append(item)
 
 #cria o Dataframe do usuario selecionado
 df_usuario = pd.read_excel(caminho_arquivos / 'usuarios' / nr_cpf / f'{nr_cpf}_dados_individuais.xlsx')

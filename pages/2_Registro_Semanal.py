@@ -31,6 +31,7 @@ if selec_nome and Path(caminho_arquivos / 'usuarios' / nr_cpf / f'{nr_cpf}_dados
 
 try:
     df_dados = pd.read_excel(caminho_arquivos / 'usuarios' / nr_cpf / f'{nr_cpf}_dados_individuais.xlsx')
+    df_dados['Data do Registro'] = pd.to_datetime(df_dados['Data do Registro'])
 except:
     st.stop()
     
@@ -41,8 +42,8 @@ imc = st.number_input('Digite o IMC do usuário', min_value=0.0, step=0.1)
 p_gordura = st.number_input('Digite o percentual de gordura corporal', min_value=0.0, step=0.1)
 p_musculo = st.number_input('Digite o percentual de musculatura corporal', min_value=0.0, step=0.1)
 metabolismo = st.number_input('Digite o metabolismo basal', min_value=0, step=1)
-idade_corporal = st.number_input('Digite a idade corporal', min_value=0)
-gordura_visceral = st.number_input('Digite a gordura visceral', min_value=0)
+idade_corporal = st.number_input('Digite a idade corporal', min_value=0, step=1)
+gordura_visceral = st.number_input('Digite a gordura visceral', min_value=0, step=1)
 
 #salva informações em um dicionário e addiciona ao dataframe
 salva = st.button('Salvar registro')
@@ -64,6 +65,21 @@ if salva:
     }
     df_novo_registro = pd.DataFrame.from_dict([dic_registro])
     df_dados = pd.concat([df_dados, df_novo_registro], ignore_index=True)
+    df_dados['Data do Registro'] = pd.to_datetime(df_dados['Data do Registro'])
     df_dados.to_excel(caminho_arquivos / 'usuarios' / nr_cpf / f'{nr_cpf}_dados_individuais.xlsx', index=False)
-    st.write('Registro salvo com sucesso')
+    st.success('Registro salvo com sucesso!')
+
+st.sidebar.divider()
+
+reg_remover = st.sidebar.number_input('Registro a ser removido', step=1)
+remover = st.sidebar.button('Remover')
+if remover:
+    if reg_remover not in df_dados['Data do Registro']:
+        st.sidebar.error('O registro selecionado é inexistente')
+        st.stop()
+    df_dados = df_dados[df_dados.index != reg_remover]
+    df_dados.to_excel(caminho_arquivos / 'usuarios' / nr_cpf / f'{nr_cpf}_dados_individuais.xlsx', index=False)
+    st.sidebar.success('Registro removido com sucesso!')
+    remover = False
+
 st.dataframe(df_dados, use_container_width=True)
